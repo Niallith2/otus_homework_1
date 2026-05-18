@@ -4,10 +4,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import ru.otus.pages.CoursesPage;
 import ru.otus.pages.MainPage;
 
@@ -36,6 +33,7 @@ public class CatalogTests extends BaseTest {
 
 
     @Test
+    @Ignore
     public void scenario2() {
         //TODO
     }
