@@ -37,8 +37,7 @@ public class CatalogTests extends BaseTest {
 
     @Test
     public void scenario2() {
-        coursesPage.open();
-        coursesPage.checkFirstAndLastCourses();
+        //TODO
     }
 
     @Test

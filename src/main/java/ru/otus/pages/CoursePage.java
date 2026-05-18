@@ -1,26 +1,24 @@
 package ru.otus.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import ru.otus.config.TestContext;
 
 @Component
-public class CoursePage extends BasePage<CoursePage>{
-
+@Lazy
+public class CoursePage extends BasePage<CoursePage> {
     @Autowired
-    WebDriver driver;
-
+    TestContext context;
     private final String headerLocator = "//h1";
 
-    public CoursePage(WebDriver driver) {
-        super(driver);
+    public CoursePage(TestContext context) {
+        super(context);
     }
 
-    public String getHeader(){
+    public String getHeader() {
         return getElement(headerLocator).getText();
     }
-
-
 
 
 }

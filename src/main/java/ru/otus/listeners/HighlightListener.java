@@ -12,7 +12,8 @@ public class HighlightListener implements WebDriverListener {
     private static final String HIGHLIGHT_SCRIPT =
             "arguments[0].style.border='3px solid red';" +
                     "arguments[0].style.backgroundColor='yellow';" +
-                    "setTimeout(function() {arguments[0].style.border=''; arguments[0].style.backgroundColor='';}, 500);";
+                    "setTimeout(function() {arguments[0].style.border=''; " +
+                    "arguments[0].style.backgroundColor='';}, 500);";
 
     @Override
     public void beforeClick(WebElement element) {
@@ -32,7 +33,8 @@ public class HighlightListener implements WebDriverListener {
                 js.executeScript(HIGHLIGHT_SCRIPT, element);
                 Thread.sleep(1000);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     private WebDriver getDriverFromElement(WebElement element) {

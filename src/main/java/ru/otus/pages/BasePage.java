@@ -1,30 +1,29 @@
 package ru.otus.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.otus.annotations.page.Path;
+import ru.otus.config.TestContext;
 
+import java.time.Duration;
 import java.util.List;
 
-import static java.lang.Thread.sleep;
-
 @Component
-@Lazy
 public abstract class BasePage<T> {
     @Value("${base.url}")
     private String baseUrl;
 
     @Autowired
-    private WebDriver driver;
+    TestContext context;
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
+    public BasePage(TestContext context) {
+        this.context = context;
     }
 
     private String getPath() {
@@ -36,34 +35,23 @@ public abstract class BasePage<T> {
     }
 
     public void open() {
-        driver.get(baseUrl + getPath());
-        PageFactory.initElements(driver, this);
+        context.getDriver().get(baseUrl + getPath());
+
     }
 
     protected WebElement getElement(String xPath) {
-        return driver.findElement(By.xpath(xPath));
+        waitWhileElementIsPresent(xPath);
+        return context.getDriver().findElement(By.xpath(xPath));
     }
 
     protected List<WebElement> getElements(String xPath) {
-        return driver.findElements(By.xpath(xPath));
+        waitWhileElementIsPresent(xPath);
+        return context.getDriver().findElements(By.xpath(xPath));
     }
 
     public void waitWhileElementIsPresent(String xPath) {
-        boolean success = false;
-        int tryCount = 0;
-
-        try {
-            while (!success) {
-                success = getElement(xPath).isDisplayed();
-                sleep(1000);
-                if (tryCount >= 10)
-                    throw new RuntimeException("Элемент не найден за 10 сек");
-                tryCount++;
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        PageFactory.initElements(context.getDriver(), this);
+        WebDriverWait wait = new WebDriverWait(context.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xPath)));
     }
-
 }
