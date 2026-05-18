@@ -21,7 +21,7 @@
 
 #### Мой результат выполнения:
 ```
-* [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.44 s -- in TestSuite
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.44 s -- in TestSuite
 [INFO]
 [INFO] Results:
 [INFO]
